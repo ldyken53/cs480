@@ -10,7 +10,7 @@ The goal is to build a student grade portal application. There will be two roles
 
 ### Students
 
-* For each student we record their name, their UIN, their email, their password, and their major. Students are identified by their UIN. A student can be enrolled in any number of classes, and we also record all of these, along with the student’s grade, the semester and year they were enrolled, and the teacher they had (see below).
+* For each student we record their name, their UIN, their email, their password, their year, and their major. Students are identified by their UIN. A student can be enrolled in any number of classes, and we also record all of these, along with the student’s grade, the semester and year they were enrolled, and the teacher they had (see below).
 
 ### Classes
 
