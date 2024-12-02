@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Query</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Teacher Dashboard</h1>
+    <form action="/query" method="POST">
+      <label for="query">Enter Query:</label>
+      <input type="text" id="query" name="query" required>
+      <button type="submit">Run Query</button>
+    </form>
+
+    <p>Results:</p>
+    <pre id="results"></pre>
+  </div>
+
+  <div class="update-grade-container">
+    <h2>Update Student Grade</h2>
+    <form id="updateGradeForm">
+      <label for="s_uin">s_uin:</label>
+      <input type="number" id="s_uin" name="s_uin" required><br>
+
+      <label for="crn">crn:</label>
+      <input type="number" id="crn" name="crn" required><br>
+
+      <label for="grade">Grade:</label>
+      <input type="number" id="grade" name="grade" required><br>
+
+      <button type="submit">Update Grade</button>
+    </form>
+    <p id="updateResult"></p>
+  </div>
+
+  <script>
+    const queryForm = document.querySelector('form[action="/query"]');
+    const resultsContainer = document.getElementById('results');
+
+    queryForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const formData = new FormData(queryForm);
+      const query = formData.get('query');
+      
+      try {
+        const response = await fetch('/query', {
+          method: 'POST',
+          body: new URLSearchParams(formData)
+        });
+        const data = await response.json();
+        resultsContainer.textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        resultsContainer.textContent = `Error: ${error.message}`;
+      }
+    });
+
+    const updateGradeForm = document.getElementById('updateGradeForm');
+    const updateResult = document.getElementById('updateResult');
+
+    updateGradeForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(updateGradeForm);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch('/update-grade', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          updateResult.textContent = result.message;
+          updateResult.style.color = 'green';
+        } else {
+          const error = await response.text();
+          updateResult.textContent = error;
+          updateResult.style.color = 'red';
+        }
+      } catch (err) {
+        console.error(err);
+        updateResult.textContent = 'An error occurred. Please try again.';
+        updateResult.style.color = 'red';
+      }
+    });
+  </script>
+</body>
+</html>

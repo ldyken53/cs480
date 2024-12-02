@@ -1,0 +1,139 @@
+/* General styling for the body */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #BA0C2F;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;  /* Center horizontally */
+  align-items: center;      /* Center vertically */
+  color: #333;
+}
+
+/* Container for the entire dashboard */
+.container {
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column; /* Stack sections vertically */
+  gap: 30px; /* Add spacing between sections */
+}
+
+/* Header Styling */
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #007bff;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* Section Container (for forms) */
+.query-container,
+.update-grade-container {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+/* Shared Styling for Forms */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between input fields */
+}
+
+/* Input Fields */
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Buttons */
+button {
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  align-self: center; /* Center the button in the form */
+  width: 50%;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Results Section Styling */
+pre {
+  background-color: #f1f1f1;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Success/Error Messages */
+#updateResult {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#updateResult.success {
+  color: #28a745;
+}
+
+#updateResult.error {
+  color: #dc3545;
+}
+
+/* Adjust for Smaller Screens */
+@media screen and (max-width: 768px) {
+  .container {
+      max-width: 100%;
+      padding: 15px;
+  }
+
+  h1 {
+      font-size: 24px;
+  }
+
+  button {
+      width: 100%; /* Full width on smaller screens */
+  }
+}
+
+/* For most modern browsers */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
