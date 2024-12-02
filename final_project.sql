@@ -120,7 +120,7 @@ JOIN Teachers tc ON tc.t_uin = cl.t_uin
 WHERE en.s_uin = "112233445" AND tc.name LIKE 'J%';
 
 
--- Filter enrollments information based on teacher's initial name
+-- Filter enrollments information based on grade
 SELECT en.crn, cl.semester, cl.year, cr.subject, tc.name as teacher_name, en.grade
 FROM Enrollments en
 JOIN ClassListings cl ON en.crn = cl.crn

@@ -18,6 +18,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 
         if (response.ok) {
             const result = await response.json();
+            console.log(result);
             alert(result.message);
             if (result.message == "Login successful!") {
                 window.location.href = result.redirect;

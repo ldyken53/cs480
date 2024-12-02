@@ -49,7 +49,7 @@ app.post('/login', (req, res) => {
 
         // Check if password matches
         if (password == user.password) {
-            res.json({ message: 'Login successful!', redirect: '/student' });
+            res.json({ message: 'Login successful!', redirect: `/student?s_uin=${s_uin}`});
         } else {
             res.status(400).send('Incorrect password');
         }
@@ -58,7 +58,20 @@ app.post('/login', (req, res) => {
 
 // API to query the MySQL database
 app.post('/query', (req, res) => {
-    const { query } = req.body;
+    const { s_uin, query_params } = req.body;
+
+    const query = `
+        SELECT Courses.name as course_name, subject, crn, t_uin, Teachers.name as teacher_name, grade, semester, ClassListings.year
+        FROM Enrollments
+        JOIN ClassListings USING (crn)
+        JOIN Courses USING (course_number)
+        JOIN Teachers USING (t_uin)
+        JOIN Students USING (s_uin)
+        WHERE s_uin = "${s_uin}"
+        ${query_params ? `AND ${query_params}` : ""}
+        ;
+    `;
+    console.log(query);
     
     db.query(query, (err, results) => {
       if (err) {

@@ -6,11 +6,13 @@
 
 Run final_project.sql
 
-#### 2. Set Up the Server (Node.js + Express)
+#### 2. Set Up the Servers (Node.js + Express)
+Navigate to either teacher or student folder, depending on which you want to run.
+Modify the MySQL connection (including host, user, password, database) in app.js.  
+Then run
 ```
 $ npm install
 ```
-Modify the MySQL connection (including host, user, password, database) in app.js.  
 
 #### Run the Application
 

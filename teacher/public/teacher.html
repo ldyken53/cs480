@@ -6,12 +6,15 @@
   <title>Teacher Query</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="container">
     <h1>Teacher Dashboard</h1>
     <form action="/query" method="POST">
-      <label for="query">Enter Query:</label>
-      <input type="text" id="query" name="query" required>
+      <label for="t_uin">View the enrollments for T_UIN:</label>
+      <input type="text" id="t_uin" name="t_uin" required>
+      <label for="query">WHERE</label>
+      <input type="text" id="query_params" name="query_params">
       <button type="submit">Run Query</button>
     </form>
 
@@ -37,13 +40,20 @@
   </div>
 
   <script>
+    // Extract query parameters from the URL
+    const params = new URLSearchParams(window.location.search);
+    const t_uin = params.get('t_uin');
+
+    if (t_uin) {
+        document.getElementById('t_uin').value = t_uin;
+    }
+
     const queryForm = document.querySelector('form[action="/query"]');
     const resultsContainer = document.getElementById('results');
 
     queryForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       const formData = new FormData(queryForm);
-      const query = formData.get('query');
       
       try {
         const response = await fetch('/query', {

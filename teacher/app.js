@@ -24,7 +24,7 @@ app.get('/teacher', (req, res) => {
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '981005',
+    password: '353353',
     database: 'cs480_project'
 });
 
@@ -49,7 +49,7 @@ app.post('/login', (req, res) => {
 
         // Check if password matches
         if (password == user.password) {
-            res.json({ message: 'Login successful!', redirect: '/teacher' });
+            res.json({ message: 'Login successful!', redirect: `/teacher?t_uin=${t_uin}`});
         } else {
             res.status(400).send('Incorrect password');
         }
@@ -58,7 +58,20 @@ app.post('/login', (req, res) => {
 
 // API to query the MySQL database
 app.post('/query', (req, res) => {
-    const { query } = req.body;
+    const { t_uin, query_params } = req.body;
+
+    const query = `
+        SELECT Courses.name as course_name, crn, s_uin, Students.name as student_name, grade, semester, ClassListings.year
+        FROM Enrollments
+        JOIN ClassListings USING (crn)
+        JOIN Courses USING (course_number)
+        JOIN Teachers USING (t_uin)
+        JOIN Students USING (s_uin)
+        WHERE t_uin = "${t_uin}"
+        ${query_params ? `AND ${query_params}` : ""}
+        ;
+    `;
+    console.log(query);
     
     db.query(query, (err, results) => {
       if (err) {
