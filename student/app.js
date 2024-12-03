@@ -68,7 +68,7 @@ app.post('/query', (req, res) => {
         JOIN Teachers USING (t_uin)
         JOIN Students USING (s_uin)
         WHERE s_uin = "${s_uin}"
-        ${query_params ? `AND ${query_params}` : ""}
+        ${query_params ? `AND (${query_params})` : ""}
         ;
     `;
     console.log(query);
